@@ -8,7 +8,7 @@ app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
-
+/*
 //só Ala na causa
 app.use(function(req, res, next) {
 
@@ -17,7 +17,7 @@ app.use(function(req, res, next) {
     // res.setHeader("Access-Control-Allow-Headers", "*");
 });
 
-
+*/
 
 //MIDDLEWARE
 router.use(function(req,res,next){
@@ -27,8 +27,17 @@ router.use(function(req,res,next){
 
 app.get('/', (req, res) => res.send('NooooooooooodeJS'));
 
+router.post('/authenticate',function(req,res){
+    
+})
+
+//Login
+router.post('/login', function(req, res){
+    res.json({'message' : "Login"})
+})
+
 //Retorna
-router.get('/nodejs',authService.authorize, function(req, res){
+router.get('/nodejs', function(req, res){
     res.json({'message' : "Get Get Get"})
 })
 //Insere

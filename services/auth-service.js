@@ -9,6 +9,7 @@ exports.generateToken = async (data) => {
 //Decodificar Token
 exports.decodeToken = async (token) => {
     var data = await jwt.verify(token, global.SALT_KEY); 
+    return data;
 }
 
 //Middleware interceptor
