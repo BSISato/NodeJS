@@ -4,6 +4,7 @@ var app = express();
 var router = express.Router();
 const authService = require('./services/auth-service');
 
+
 app.use(bodyParser.json());
 
 app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,25 +26,22 @@ router.use(function (req, res, next) {
     next();
 })
 
-app.get('/', (req, res) => res.send('NooooooooooodeJS'));
+//app.get('/', (req, res) => res.send('NooooooooooodeJS'));
 
-router.post('/authenticate', function (req, res) {
+
+router.post('/authenticate', function (req, res)   {
     var user = req.body.user;
     var pwd = req.body.pwd;
     if (user == 'sato' && pwd == '123') {
 
-        var token = authService.generateToken(pwd);
+        const token = authService.generateToken({pwd});
         res.status(200).send({ auth: true, token: token });
-    }
+    }else
 
-    res.status(500).send('Login inválido!');
+    res.status(400).send('Login inválido!');
 
 })
 
-//Login
-router.post('/login', function (req, res) {
-    res.json({ 'message': "Login" })
-})
 
 //Retorna
 router.get('/nodejs', function (req, res) {
