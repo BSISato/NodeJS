@@ -1,5 +1,5 @@
-var express = require( 'express');
-var bodyParser = require ('body-parser');
+var express = require('express');
+var bodyParser = require('body-parser');
 var app = express();
 var router = express.Router();
 const authService = require('./services/auth-service');
@@ -20,46 +20,55 @@ app.use(function(req, res, next) {
 */
 
 //MIDDLEWARE
-router.use(function(req,res,next){
+router.use(function (req, res, next) {
     console.log("Interceptação pelo Middleware OOOOOK");
     next();
 })
 
 app.get('/', (req, res) => res.send('NooooooooooodeJS'));
 
-router.post('/authenticate',function(req,res){
-    
+router.post('/authenticate', function (req, res) {
+    var user = req.body.user;
+    var pwd = req.body.pwd;
+    if (user == 'sato' && pwd == '123') {
+
+        var token = authService.generateToken(pwd);
+        res.status(200).send({ auth: true, token: token });
+    }
+
+    res.status(500).send('Login inválido!');
+
 })
 
 //Login
-router.post('/login', function(req, res){
-    res.json({'message' : "Login"})
+router.post('/login', function (req, res) {
+    res.json({ 'message': "Login" })
 })
 
 //Retorna
-router.get('/nodejs', function(req, res){
-    res.json({'message' : "Get Get Get"})
+router.get('/nodejs', function (req, res) {
+    res.json({ 'message': "Get Get Get" })
 })
 //Insere
-router.post('/nodejs', function(req, res){
-    res.json({'message' : "Post Post Post"})
+router.post('/nodejs', function (req, res) {
+    res.json({ 'message': "Post Post Post" })
 })
 //Substitui
-router.put('/nodejs', function(req, res){
-    res.json({'message' : "Put Put Put"})
+router.put('/nodejs', function (req, res) {
+    res.json({ 'message': "Put Put Put" })
 })
 //Altera
-router.patch('/nodejs', function(req, res){
-    res.json({'message' : "Patch Patch Patch"})
+router.patch('/nodejs', function (req, res) {
+    res.json({ 'message': "Patch Patch Patch" })
 })
 //Apaga
-router.delete('/nodejs', function(req, res){
-    res.json({'message' : "Delete Delete Delete"})
+router.delete('/nodejs', function (req, res) {
+    res.json({ 'message': "Delete Delete Delete" })
 })
 
 
 app.use('/api', router);
 
-app.listen(3000, () =>{
+app.listen(3000, () => {
     console.log('Bizuuu na porta 3000');
 });
